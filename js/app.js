@@ -37,9 +37,12 @@ start_button.addEventListener('click', () => {
 // add click event listeners to each of the onscreen keyboard buttons so that clicking a button calls the handleInteraction() method on the Game object. Event delegation can also be used in order to avoid having to add an event listener to each individual keyboard button. clicking the space between and around the onscreen keyboard buttons SHOULD NOT result in the handleInteraction() method being called
 keyboard.addEventListener('click', e => {
     if (e.target.className === 'key') {
-        const selectedLetter = e.target.innerText;
-        game.handleInteraction(selectedLetter);
+        game.handleInteraction(e.target);
     }
+});
+
+document.querySelector('#game-over-test').addEventListener('click', () => {
+    game.gameOver();
 });
 
 

@@ -60,6 +60,10 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 #btn__reset {
 	width: 200px;
 	margin: 0 auto;

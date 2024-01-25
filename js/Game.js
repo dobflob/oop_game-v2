@@ -17,7 +17,7 @@ class Game {
         this.activePhrase = this.getRandomPhrase();
         console.log(this.activePhrase);
         //add phrase to the board by calling addPhraseToDisplay() method on the active phrase property
-        this.activePhrase.addPhraseToDisplay(this.activePhrase.phrase);
+        this.activePhrase.addPhraseToDisplay();
     }
 
     getRandomPhrase() {
@@ -26,10 +26,21 @@ class Game {
         return phrases[randomIndex];
     }
     
-    handleInteraction(letter) {
-        
+    //called when a user chooses a letter on the keyboard...
+    handleInteraction(keyElement) {
+        const keyChar = keyElement.innerText;
         //controls most of the game logic:
         //checks to see if the button clicked by the player matches a letter in the phrase and directs the game based on whether the player's guess is correct or incorrect
+        const match = this.activePhrase.checkLetter(keyChar);
+        keyElement.disabled = true;
+
+        if (!match) {
+            keyElement.classList.add('wrong');
+        } else {
+            keyElement.classList.add('chosen');
+        }
+
+        
         
         // - disable selected letter's onscreen keyboard button
         // - if the phrase does not include the letter, add the wrong class to the selected letter's keyboard button and call the removeLive() method
@@ -50,6 +61,17 @@ class Game {
     gameOver() {
         //this method displays the original start screen overlay and depending on the outcome of the game, updates the overlay h1 element with a friendly win or loss message and replaces the overlay's start class with either the win or lose class
         overlay.style.display = 'flex';
+        
+        // remove all list items from the phrase display
         charDisplay.innerHTML = '';
+        // removed disabled state from each keyboard key and chosen and wrong classes from the key button
+        const keyRows = keyboard.children;
+        for (const row of keyRows) {
+            const keys = row.children;
+            for (const key of keys) {
+                key.disabled = false;
+                key.classList.remove('chosen', 'wrong');
+            }
+        }
     }
 }
