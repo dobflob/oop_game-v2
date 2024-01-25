@@ -19,7 +19,8 @@ const phraseStrings = [
     'Under the weather'
 ];
 
-const phrases = phraseStrings.map(phrase => phrase = new Phrase(phrase));
+const phrases = phraseStrings.map(phrase => new Phrase(phrase));
+const charDisplay = document.querySelector('#phrase ul');
 
 const overlay = document.querySelector('#overlay');
 const start_button = document.querySelector('#btn__reset');

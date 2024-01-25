@@ -120,6 +120,11 @@ button {
   border-radius: 5px;
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
+  user-select: auto;
+}
+
+.hide {
+  user-select: none; /*Prevent user from cheating by highlighting answers :D*/
 }
 
 
