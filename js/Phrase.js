@@ -4,7 +4,7 @@
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
-        this.phraseArray = phrase.split('');
+        this.phraseArray = this.phrase.split('');
     }
 
     //takes the active phrase and creates list items for each character to display on screen (adds appropriate classes for space characters or letters)
@@ -27,13 +27,20 @@ class Phrase {
 
     checkLetter(selectedLetter) {
         if (this.phraseArray.includes(selectedLetter)) {
+            this.showMatchedLetter(selectedLetter);
             return true;
         } else {
             return false;
         }    
     }
-   /*  
-    showMatchedLetter() {
-        
-    } */
+   
+    showMatchedLetter(matchedLetter) {
+        const charLis = charDisplay.children; 
+        for (const li of charLis) {
+            if (li.innerText === matchedLetter) {
+                li.classList.remove('hide');
+                li.classList.add('show');
+            }
+        }
+    } 
 }

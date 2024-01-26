@@ -1,13 +1,9 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Game.js */
-
-
 class Game {
-    constructor(missed, phrases, activePhrase) {
-        this.missed = missed;
+    constructor (phrases) {
+        this.missed = 0;
         this.phrases = phrases;
-        this.activePhrase = activePhrase;
+        this.activePhrase = this.getRandomPhrase();
+        this.outcome = '';
     }
 
     startGame() {
@@ -36,35 +32,63 @@ class Game {
 
         if (!match) {
             keyElement.classList.add('wrong');
+            this.removeLife();
         } else {
             keyElement.classList.add('chosen');
+            const winner = this.checkForWin();
+            
+            if (winner) {
+                this.gameOver();
+            }
         }
-
-        
-        
-        // - disable selected letter's onscreen keyboard button
-        // - if the phrase does not include the letter, add the wrong class to the selected letter's keyboard button and call the removeLive() method
-        // - if the phrase includes the guessed letter, add the chosen class to the selected letter's keyboard button and call the showMatchedLetter() method on the phrase; then call checkForWin()
-        // - if the player has won the game, also call the gameOver() method
     }
 
     removeLife() {
-        //remove a life from the scoreboard by replacing one of the liveHeart.png images with a lostHeart.png image and increments the missed property. if the player has five missed guesses (i.e. they are out of lives), then end the game by calling the gameOver() method
+        //remove a life when a user guesses and incorrect letter
+        //call game over if the user has run out of lives
+        this.missed += 1;
+              
+        if (this.missed === 5) {
+            this.outcome = 'lose';
+            this.gameOver();
+        } else {
+            tries = tries - 1;
+            console.log(tries);
+            lives[tries].innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">';
+        }
     }
-
     
     checkForWin() {
-        //checks to see if the player has revealed all of the letters in the active phrase
-    }
+        if (charDisplay.querySelectorAll('.hide').length === 0) {
+            this.outcome = 'win';
+            return true;
+        } else {
+            return false;
+        }
+    } 
 
-    
     gameOver() {
-        //this method displays the original start screen overlay and depending on the outcome of the game, updates the overlay h1 element with a friendly win or loss message and replaces the overlay's start class with either the win or lose class
         overlay.style.display = 'flex';
-        
+        overlay.classList.remove('start');
+        overlay.classList.add(this.outcome);
+
+        if (this.outcome === 'win') {
+            overlay.querySelector('#game-over-message').textContent = `Congrats! You Know Your Idioms!`;
+        } else {
+            overlay.querySelector('#game-over-message').textContent = `Better Luck Next Time!`;
+        }
+
         // remove all list items from the phrase display
         charDisplay.innerHTML = '';
-        // removed disabled state from each keyboard key and chosen and wrong classes from the key button
+        
+        //reset lives by replacing heart images
+        for (const li of lives) {
+            li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">';
+        }
+        //reset tries
+        tries = 5;
+
+        // remove disabled state from each keyboard key and added classes
         const keyRows = keyboard.children;
         for (const row of keyRows) {
             const keys = row.children;
