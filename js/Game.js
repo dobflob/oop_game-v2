@@ -110,7 +110,7 @@ class Game {
      */
     gameOver() {
         overlay.style.display = 'flex';
-        overlay.classList.remove('start');
+        overlay.classList = [''];
         overlay.classList.add(this.outcome);
 
         if (this.outcome === 'win') {
