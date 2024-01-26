@@ -115,7 +115,7 @@ class Game {
 
         if (this.outcome === 'win') {
             overlay.querySelector('#game-over-message').textContent = `Congrats! You Know Your Idioms!`;
-        } else {
+        } else if (this.outcome === 'lose') {
             overlay.querySelector('#game-over-message').textContent = `Better Luck Next Time!`;
         }
 

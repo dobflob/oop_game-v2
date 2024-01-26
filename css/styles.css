@@ -188,11 +188,11 @@ button:disabled {
   color: #FFF;
 }
 
-.start {
+.start, .quit {
   background-color: #3a3f58;
 }
 
-.start a {
+.start a, .quit a {
   color: #fff;
 }
 

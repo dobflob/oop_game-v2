@@ -13,6 +13,7 @@ const phrases = phraseStrings.map(phrase => new Phrase(phrase));
 const charDisplay = document.querySelector('#phrase ul');
 const overlay = document.querySelector('#overlay');
 const start_button = document.querySelector('#btn__reset');
+const quit_button = document.querySelector('#btn__quit');
 const keyboard = document.querySelector('#qwerty');
 
 /**
@@ -45,6 +46,14 @@ keyboard.addEventListener('click', e => {
     }
 });
 
+/**
+ * @listens click
+ * @param {HTMLElement} e the quit button
+ */
+quit_button.addEventListener('click', () => {
+    game.outcome = 'quit';
+    game.gameOver();
+});
 // // FINISHING THE PROJECT
 
 
