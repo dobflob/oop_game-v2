@@ -1,40 +1,65 @@
+/** Class representing a game of Phrase Hunter */ 
 class Game {
+    /**
+     * @param {array} phrases array of Phrases
+     * @type {number} missed number of wrong guesses the player has in this game
+     * @type {Phrase} activePhrase phrase the player is trying to guess this game
+     * @type {string} outcome set to either 'win' or 'lose' in @function gameOver  
+     */
     constructor (phrases) {
         this.missed = 0;
         this.phrases = phrases;
         this.activePhrase = this.getRandomPhrase();
-        this.outcome = '';
+        this.outcome;
     }
 
+    /**
+     * @function startGame starts a new game when event fires
+     * removes the start screen overlay
+     * sets the activePhrase the player will try to guess
+     * adds empty boxes and spaces to display the activePhrase
+     */
     startGame() {
-        //hides the start screen overlay
         overlay.style.display = 'none';
-        //sets activePhrase property wtih the chosen phrase
-        this.activePhrase = this.getRandomPhrase();
-        console.log(this.activePhrase);
-        //add phrase to the board by calling addPhraseToDisplay() method on the active phrase property
+        this.activePhrase = this.getRandomPhrase();    
         this.activePhrase.addPhraseToDisplay();
     }
 
+    /**
+     * Gets a random phrase from the this.phrases
+     * @returns {Phrase} to be used as the activePhrase
+     */
     getRandomPhrase() {
-        //getRandomPhrase() randomly retrieves one of the phrases stored in the phrases array and returns it
         const randomIndex = Math.floor(Math.random() * 15);
         return phrases[randomIndex];
     }
     
-    //called when a user chooses a letter on the keyboard...
+    /**
+     * @function handleInteraction handles logic when event fires:
+     * disables the keyboard key that triggered the event
+     * checks to see if the activePhrase includes the letter the player selected
+     * if !match, calls @function removeLife
+     * if match, calls @function checkForWin 
+     * if winner, calls @function gameOver
+     * @param {HTMLElement} keyElement target of the click event
+     */
     handleInteraction(keyElement) {
-        const keyChar = keyElement.innerText;
-        //controls most of the game logic:
-        //checks to see if the button clicked by the player matches a letter in the phrase and directs the game based on whether the player's guess is correct or incorrect
-        const match = this.activePhrase.checkLetter(keyChar);
         keyElement.disabled = true;
+
+        /** @type {node} text of the target element*/
+        const keyChar = keyElement.innerText;
+
+        /** @type {boolean} true if selected letter is in the activePhrase*/
+        const match = this.activePhrase.checkLetter(keyChar);
+        
 
         if (!match) {
             keyElement.classList.add('wrong');
             this.removeLife();
         } else {
             keyElement.classList.add('chosen');
+
+            /** @type {boolean} true if all letters in the activePhrase are revealed*/
             const winner = this.checkForWin();
             
             if (winner) {
@@ -43,21 +68,28 @@ class Game {
         }
     }
 
+    /**
+     * @function removeLife removes a life or ends the game if no lives left
+     * adds 1 to @type {number} missed
+     * if player is out of lives, calls @function gameOver and sets @type {string} outcome
+     * replaces liveHeart.png with lostHeart.png
+     */
     removeLife() {
-        //remove a life when a user guesses and incorrect letter
-        //call game over if the user has run out of lives
         this.missed += 1;
               
         if (this.missed === 5) {
             this.outcome = 'lose';
             this.gameOver();
         } else {
-            tries = tries - 1;
-            console.log(tries);
-            lives[tries].innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">';
+            lives[maxTries - this.missed].innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">';
         }
     }
     
+    /**
+     * @function checkForWin checks to see if all letters in the activePhrase are shown
+     * if player won, sets @type {string} outcome
+     * @returns @type {boolean} indicates if player won the game
+     */
     checkForWin() {
         if (charDisplay.querySelectorAll('.hide').length === 0) {
             this.outcome = 'win';
@@ -67,6 +99,15 @@ class Game {
         }
     } 
 
+    /**
+     * @function gameOver resets variables, classes, etc in preparation for new game
+     * displays the overlay screen
+     * sets overlay class to value of @type {string} outcome
+     * displays a message to the player based on the @type {string} outcome
+     * removes letter display boxes (list items) 
+     * removes disabled state from @type {HTMLElement} keyboard keys
+     * removes chosen/wrong classes from @type {HTMLElement} keyboard keys
+     */
     gameOver() {
         overlay.style.display = 'flex';
         overlay.classList.remove('start');
@@ -78,17 +119,12 @@ class Game {
             overlay.querySelector('#game-over-message').textContent = `Better Luck Next Time!`;
         }
 
-        // remove all list items from the phrase display
         charDisplay.innerHTML = '';
         
-        //reset lives by replacing heart images
         for (const li of lives) {
             li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">';
         }
-        //reset tries
-        tries = 5;
 
-        // remove disabled state from each keyboard key and added classes
         const keyRows = keyboard.children;
         for (const row of keyRows) {
             const keys = row.children;
