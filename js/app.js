@@ -5,9 +5,10 @@ const phrases = phraseStrings.map(phrase => new Phrase(phrase));
 
 /**
  * Variables to hold HTML elements needed for handling user interactions and updating content on the screen
- * @type {HTMLElement} @name charDisplay the unordered list that holds an li for each character in the game's activePhrase
- * @type {HTMLElement} @name overlay the overlay screen shown at the start and end of the game
- * @type {HTMLElement} @name start_button has the event listener to know when to start a new game
+ * @type {HTMLElement} @name charDisplay <ul>> that holds an <li> for each character in the game's activePhrase
+ * @type {HTMLElement} @name overlay the overlay screen at start/end of the game
+ * @type {HTMLElement} @name start_button to attach event listener
+ * @type {HTMLElement} @name quit_button to attach event listener
  * @type {HTMLElement} @name keyboard the container that holds the rows of keyboard keys displayed on screen
  */
 const charDisplay = document.querySelector('#phrase ul');
