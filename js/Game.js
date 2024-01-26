@@ -9,8 +9,8 @@ class Game {
     constructor (phrases) {
         this.missed = 0;
         this.phrases = phrases;
-        this.activePhrase = this.getRandomPhrase();
-        this.outcome;
+        this.activePhrase = null;
+        this.outcome = '';
     }
 
     /**
