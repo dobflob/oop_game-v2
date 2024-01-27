@@ -127,12 +127,9 @@ class Game {
             li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="30" width="30">';
         }
 
-        for (const row of uiKeyboardRows) {
-            const keys = row.children;
-            for (const key of keys) {
-                key.disabled = false;
-                key.classList.remove('chosen', 'wrong');
-            }
+        for (const key of uiKeys) {
+            key.disabled = false;
+            key.classList.remove('chosen', 'wrong');
         }
     }
 }

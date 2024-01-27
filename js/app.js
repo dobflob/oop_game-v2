@@ -16,7 +16,7 @@ const overlay = document.querySelector('#overlay');
 const start_button = document.querySelector('#btn__reset');
 const quit_button = document.querySelector('#btn__quit');
 const uiKeyboard = document.querySelector('#qwerty');
-const uiKeyboardRows = uiKeyboard.children; 
+const uiKeys = uiKeyboard.querySelectorAll('.keyrow > .key');
 
 /**
  * Variables relating to the game's scoring
@@ -62,21 +62,21 @@ quit_button.addEventListener('click', () => {
 /**
  * @listens keyup
  * @param {HTMLElement} e the quit button
- * sends the matching ui key to @function handleInteraction if the key pressed is a letter and the game has started
+ * sends the matching ui key to @function handleInteraction if the key pressed is a letter, the game has started, and the key hasn't already been selected
  */
 document.addEventListener('keyup', (e) => {
     const playerKey = e.key;
-    const isValidEntry = /^[a-zA-Z]/.test(playerKey);
-    if (isValidEntry && overlay.style.display === 'none') {
-        for(const row of uiKeyboardRows) {
-            const keys = row.children;
-            for(const key of keys) {
-                if (key.textContent === playerKey.toLowerCase()) {
-                    game.handleInteraction(key);
-                }       
+    const isValidEntry = /^[a-z]$/i.test(playerKey);
+
+    if (isValidEntry && overlay.style.display === 'none') {         
+
+        for (i = 0; i < uiKeys.length; i++) {
+            if (playerKey === uiKeys[i].textContent && !uiKeys[i].disabled) {
+                game.handleInteraction(uiKeys[i]);
+                break;
             }
         }
-    }
+    } 
 });
 
 
