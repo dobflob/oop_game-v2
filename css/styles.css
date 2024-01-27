@@ -83,6 +83,14 @@ button:disabled {
   color: var(--color-bright);
 }
 
+#btn__reset.win:hover {
+  background: var(--color-win);
+}
+
+#btn__reset.lose:hover {
+  background: var(--color-lose);
+}
+
 #btn__quit {
   width: 100px;
 	margin: 0 auto;
@@ -160,12 +168,15 @@ button:disabled {
 
 /* Keyboard */
 
-
 .key {
   color: var(--color-keys);
   background-color: var(--color-keys-bkgd);
   outline: 1px solid var(--color-keys-bkgd);
   outline-offset: 2px;
+}
+
+.key:hover {
+  outline-width: 3px;
 }
 
 .keyrow {

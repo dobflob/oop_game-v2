@@ -112,6 +112,8 @@ class Game {
         overlay.style.display = 'flex';
         overlay.classList = [''];
         overlay.classList.add(this.outcome);
+        start_button.classList = [''];
+        start_button.classList.add(this.outcome);
 
         if (this.outcome === 'win') {
             overlay.querySelector('#game-over-message').textContent = `Congrats! You Know Your Idioms!`;
