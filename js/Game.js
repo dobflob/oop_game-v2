@@ -116,9 +116,11 @@ class Game {
         start_button.classList.add(this.outcome);
 
         if (this.outcome === 'win') {
-            overlay.querySelector('#game-over-message').textContent = `Congrats! You Know Your Idioms!`;
+            gameOverMsg.textContent = `Congrats! You Know Your Idioms!`;
         } else if (this.outcome === 'lose') {
-            overlay.querySelector('#game-over-message').textContent = `Better Luck Next Time!`;
+            gameOverMsg.textContent = `Better Luck Next Time!`;
+        } else {
+            gameOverMsg.textContent = '';
         }
 
         charDisplay.innerHTML = '';

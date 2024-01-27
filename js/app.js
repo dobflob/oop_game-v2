@@ -5,16 +5,20 @@ const phrases = phraseStrings.map(phrase => new Phrase(phrase));
 
 /**
  * Variables to hold HTML elements needed for handling user interactions and updating content on the screen
- * @type {HTMLElement} @name charDisplay <ul>> that holds an <li> for each character in the game's activePhrase
  * @type {HTMLElement} @name overlay the overlay screen at start/end of the game
+ * @type {HTMLElement} @name gameOverMsg h1 message that displays text if player lost/won
  * @type {HTMLElement} @name start_button to attach event listener
  * @type {HTMLElement} @name quit_button to attach event listener
+ * @type {HTMLElement} @name charDisplay <ul>> that holds an <li> for each character in the game's activePhrase
  * @type {HTMLElement} @name uiKeyboard the container that holds the rows of keyboard keys displayed on screen
+ * @type {HTMLCollection} @name uiKeys the key elements within the ui keyboard
  */
-const charDisplay = document.querySelector('#phrase ul');
+
 const overlay = document.querySelector('#overlay');
+const gameOverMsg = overlay.querySelector('#game-over-message');
 const start_button = document.querySelector('#btn__reset');
 const quit_button = document.querySelector('#btn__quit');
+const charDisplay = document.querySelector('#phrase ul');
 const uiKeyboard = document.querySelector('#qwerty');
 const uiKeys = uiKeyboard.querySelectorAll('.keyrow > .key');
 
@@ -78,13 +82,3 @@ document.addEventListener('keyup', (e) => {
         }
     } 
 });
-
-
-
-
-// // FINISHING THE PROJECT
-
-
-// - cross-browser consistency: to pass, your project only needs to work in chrome, but it's common for developers to test their projects in multiple browsers to know how they will perform out in the wild
-
-
