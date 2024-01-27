@@ -81,7 +81,7 @@ class Game {
             this.outcome = 'lose';
             this.gameOver();
         } else {
-            lives[maxTries - this.missed].innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">';
+            lives[maxTries - this.missed].innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="30" width="30">';
         }
     }
     
@@ -122,7 +122,7 @@ class Game {
         charDisplay.innerHTML = '';
         
         for (const li of lives) {
-            li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30">';
+            li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="30" width="30">';
         }
 
         const keyRows = keyboard.children;

@@ -4,13 +4,15 @@
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
-  --color-start: #5b85b7;
-  --color-neutral: #445069;
-  --color-neutral-light: #D2D2D2;
-  --color-keys: #37474F;
-  --color-keys-light: #E5E5E5;
+  --color-win: #788374;
+  --color-lose: #aa644d;
+  --color-start: #372a39;
+  --color-bright: #f5e9bf;
+  --color-ltr-boxes: #372a39;
+  --color-ltr-boxes-show: var(--color-bright);
+  --color-keys: var(--color-bright);
+  --color-keys-bkgd: var(--color-start);
+  --color-drk-bkgd: #1A141B;
   --font-size-large: 60px;
   --font-size-medium: 20px;
   --transition: all .2s ease-in-out;
@@ -28,6 +30,7 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background-color: var(--color-drk-bkgd);
 }
 
 li, ol, ul {
@@ -37,8 +40,9 @@ li, ol, ul {
 
 h2 {
   margin: 0;
-  text-transform: uppercase;
+  font-family: 'Press Start 2P';
   font-size: var(--font-size-large);
+  letter-spacing: 2px;
   margin: 0;
 }
 
@@ -52,7 +56,7 @@ button {
   padding: .5rem 1rem;
   color: var(--color-keys);
   font-size: var(--font-size-medium);
-  background-color: var(--color-keys-light);
+  background-color: var(--color-keys-bkgd);
   border-radius: 5px;
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
@@ -67,6 +71,29 @@ button:disabled {
 #btn__reset {
 	width: 200px;
 	margin: 0 auto;
+  background: var(--color-bright);
+  color: var(--color-start);
+  font-weight: 600;
+  outline:  2px solid var(--color-bright);
+  outline-offset: 4px;
+}
+
+#btn__reset:hover {
+  background: var(--color-start);
+  color: var(--color-bright);
+}
+
+#btn__quit {
+  width: 100px;
+	margin: 0 auto;
+  background: var(--color-lose);
+  color: var(--color-drk-bkgd);
+  font-weight: 600;
+}
+
+#btn__quit:hover {
+  outline: 1px solid var(--color-lose);
+  outline-offset: 2px;
 }
 
 .main-container {
@@ -90,7 +117,7 @@ button:disabled {
 /* Title */
 
 .header {
-  color: #3a3f58;
+  color: var(--color-bright);
 }
 
 
@@ -103,7 +130,7 @@ button:disabled {
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
-  background: var(--color-neutral-light);
+  background: var(--color-ltr-boxes);
   border-radius: 5px;
 }
 
@@ -111,12 +138,11 @@ button:disabled {
   width: 15px;
 }
 
-
-
 .show {
-  color: #fff;
-  background-color: #4ac0d5;
-  font-size: 20px;
+  color: var(--color-start);
+  background-color: var(--color-ltr-boxes-show);
+  font-size: var(--font-size-medium);
+  font-weight: bold;
   height: 65px;
   width: 65px;
   padding: 20px 1px 0 1px;
@@ -134,40 +160,30 @@ button:disabled {
 
 /* Keyboard */
 
+
+.key {
+  color: var(--color-keys);
+  background-color: var(--color-keys-bkgd);
+  outline: 1px solid var(--color-keys-bkgd);
+  outline-offset: 2px;
+}
+
 .keyrow {
   display: flex;
   justify-content: center;
 }
 
 .chosen {
-  background: #3a3f58;
-  border-radius: 5px;
-  font-size: var(--font-size-medium);
-  color: #FFFFFF;
+  background: var(--color-win);
+  color: var(--color-drk-bkgd);
+  outline: none;
 }
 
 .wrong {
-  background: #f7a964;
-  color: #FFFFFF;
+  background: var(--color-lose);
+  color: var(--color-drk-bkgd);
+  outline: none;
 }
-
-.btn__reset {
-  padding: 16px;
-  margin: 50px auto;
-  background: #f7a964;
-  border-radius: 5px;
-  font-size: 20px;
-  cursor: pointer;
-  border-bottom: solid 4px rgba(0, 0, 0, .3);
-  border-right: solid 3px rgba(0, 0, 0, .3)
-}
-
-.btn__reset:active {
-  padding: 14px 16px 16px 14px;
-  border-bottom: solid 4px rgba(0, 0, 0, 0);
-  border-right: solid 3px rgba(0, 0, 0, 0);
-}
-
 
 /* Overlay */
 
@@ -175,7 +191,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   position: fixed;
-  color: #FFFFFF;
+  color: var(--color-bright);
   justify-content: center;
   top: 0;
   bottom: 0;
@@ -185,29 +201,17 @@ button:disabled {
 }
 
 .title {
-  color: #FFF;
+  color: var(--color-bright);
 }
 
 .start, .quit {
-  background-color: #3a3f58;
-}
-
-.start a, .quit a {
-  color: #fff;
+  background-color: var(--color-start);
 }
 
 .win {
   background-color: var(--color-win);
 }
 
-.win a {
-  color: var(--color-win);
-}
-
 .lose {
-  background-color: #f5785f;
-}
-
-.lose a {
-  color: var(--color-lose);
+  background-color:var(--color-lose);
 }
