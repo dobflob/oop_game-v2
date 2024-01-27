@@ -9,13 +9,14 @@ const phrases = phraseStrings.map(phrase => new Phrase(phrase));
  * @type {HTMLElement} @name overlay the overlay screen at start/end of the game
  * @type {HTMLElement} @name start_button to attach event listener
  * @type {HTMLElement} @name quit_button to attach event listener
- * @type {HTMLElement} @name keyboard the container that holds the rows of keyboard keys displayed on screen
+ * @type {HTMLElement} @name uiKeyboard the container that holds the rows of keyboard keys displayed on screen
  */
 const charDisplay = document.querySelector('#phrase ul');
 const overlay = document.querySelector('#overlay');
 const start_button = document.querySelector('#btn__reset');
 const quit_button = document.querySelector('#btn__quit');
-const keyboard = document.querySelector('#qwerty');
+const uiKeyboard = document.querySelector('#qwerty');
+const uiKeyboardRows = uiKeyboard.children; 
 
 /**
  * Variables relating to the game's scoring
@@ -27,6 +28,7 @@ const scoreboardOl = document.querySelector('#scoreboard ol');
 const lives = scoreboardOl.children;
 const maxTries = lives.length;
 
+/** Click Events */
 /**
  * @listens click 
  * @param {HTMLElement} e the start button
@@ -41,7 +43,7 @@ start_button.addEventListener('click', () => {
  * @listens click 
  * @param {HTMLElement} e the specific key the user clicked
  */
-keyboard.addEventListener('click', e => {
+uiKeyboard.addEventListener('click', e => {
     if (e.target.className === 'key') {
         game.handleInteraction(e.target);
     }
@@ -55,6 +57,31 @@ quit_button.addEventListener('click', () => {
     game.outcome = 'quit';
     game.gameOver();
 });
+
+/** Keyboard Events */
+/**
+ * @listens keyup
+ * @param {HTMLElement} e the quit button
+ * sends the matching ui key to @function handleInteraction if the key pressed is a letter and the game has started
+ */
+document.addEventListener('keyup', (e) => {
+    const playerKey = e.key;
+    const isValidEntry = /^[a-zA-Z]/.test(playerKey);
+    if (isValidEntry && overlay.style.display === 'none') {
+        for(const row of uiKeyboardRows) {
+            const keys = row.children;
+            for(const key of keys) {
+                if (key.textContent === playerKey.toLowerCase()) {
+                    game.handleInteraction(key);
+                }       
+            }
+        }
+    }
+});
+
+
+
+
 // // FINISHING THE PROJECT
 
 

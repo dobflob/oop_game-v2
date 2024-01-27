@@ -127,8 +127,7 @@ class Game {
             li.innerHTML = '<img src="images/liveHeart.png" alt="Heart Icon" height="30" width="30">';
         }
 
-        const keyRows = keyboard.children;
-        for (const row of keyRows) {
+        for (const row of uiKeyboardRows) {
             const keys = row.children;
             for (const key of keys) {
                 key.disabled = false;

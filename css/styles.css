@@ -85,10 +85,12 @@ button:disabled {
 
 #btn__reset.win:hover {
   background: var(--color-win);
+  color: var(--color-bright);
 }
 
 #btn__reset.lose:hover {
   background: var(--color-lose);
+  color: var(--color-bright);
 }
 
 #btn__quit {
